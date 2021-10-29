@@ -1,0 +1,38 @@
+version: "3"
+volumes:
+  pg_data:
+    driver: local
+services:
+  pg:
+    image: postgres:12-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    ports:
+      - '15432:5432'
+
+# Use sidekiq
+#  redis:
+#    image: redis
+#    ports:
+#      - '6379:6379'
+# Use mail
+#  mailcatcher:
+#    image: 'schickling/mailcatcher'
+#    ports:
+#      - "1025:1025"
+#      - "1080:1080"
+
+# Use file upload to S3
+#  localstack:
+#    image: localstack/localstack
+#    ports:
+#      - 4566:4566 # edge port
+#    environment:
+#      SERVICES: s3
+#      AWS_DEFAULT_REGION: ap-northeast-1
+#      DATA_DIR: /tmp/localstack/data
+#    volumes:
+#      - ./docker/localstack/:/docker-entrypoint-initaws.d
