@@ -1,24 +1,68 @@
-# README
+# App
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Setup
 
-Things you may want to cover:
+### prerequirement
 
-* Ruby version
+* ruby (see .ruby-version)
+* postgresql dev library
+  * macOS: `brew install libpq`
+  * archlinux: `yay -S postgresql-client`
+* docker
+* docker-compose
+* direnv ( https://github.com/direnv/direnv )
+* yarn
 
-* System dependencies
+### Setup
 
-* Configuration
+direnv
 
-* Database creation
+```
+cp .envrc.sample .envrc
+direnv allow
+```
 
-* Database initialization
+bundle
 
-* How to run the test suite
+```
+bundle config set path 'vendor/bundle'
+bundle binstubs --path=vendor/bundle/bin
 
-* Services (job queues, cache servers, search engines, etc.)
+`bundle binstubs` needs at least one gem to run. #この出力は無視
 
-* Deployment instructions
+bundle install -j4
+```
 
-* ...
+create DB
+
+```
+docker-compose up -d
+
+rails db:create
+rails db:migrate
+```
+
+yarn install
+
+```
+yarn install
+```
+
+### Run server
+
+```
+bin/server
+```
+
+### Run rspec
+
+```
+rails spec
+```
+
+### Run rspec with guard
+
+```
+guard
+```
+
